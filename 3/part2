@@ -1,0 +1,53 @@
+file = open("input.txt")
+text = file.read()
+
+def getGroups(person):
+    group = [""]
+    for bagIndex in range(0, len(person), 3):
+        group.append([person[bagIndex], person[bagIndex + 1], person[bagIndex + 2]])
+    return group
+
+def getPriority(letter):
+        if ord(letter) < 95:
+            return ord(letter) - 38
+            
+        else:
+            return ord(letter) - 96
+
+def getMatch(compartment1, compartment2):
+    matches = []
+    for firstItem in range(0, len(compartment1)):
+            for secondItems in range(0, len(compartment2)):
+                        if compartment1[firstItem] == compartment2[secondItems]:
+                            matches.append(compartment1[firstItem])
+    return matches
+
+
+
+
+
+matchedLetter1 = [""]
+matchedLetter2 = [""]
+finalMatch = [""]
+person = text.split("\n")
+x = 0
+grouped = getGroups(person)
+
+for groups in range(1,101):
+    
+    matchedLetter1 = getMatch(list(grouped[groups][0]), list(grouped[groups][1]))
+    matchedLetter2 = getMatch(list(grouped[groups][1]), list(grouped[groups][2]))
+    finalMatch = getMatch(matchedLetter1, matchedLetter2)
+    x = x + getPriority(finalMatch[0])
+
+
+
+print(x)
+
+
+
+
+
+
+        
+        
